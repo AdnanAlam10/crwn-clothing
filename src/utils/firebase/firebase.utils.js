@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   GoogleAuthProvider,
+  signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
 
@@ -18,8 +19,7 @@ const firebaseConfig = {
   appId: "1:904025600934:web:780fb9b5170c99289b5567",
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const firebaseApp = initializeApp(firebaseConfig);
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -38,19 +38,16 @@ export const createUserDocumentFromAuth = async (
   additionalInformation = {}
 ) => {
   if (!userAuth) return;
-  //Creates a new user document
+
   const userDocRef = doc(db, "users", userAuth.uid);
 
-  // Method used for checking if the user is already in the database
   const userSnapshot = await getDoc(userDocRef);
 
-  // Runs when a new user logs in and needs to be created
   if (!userSnapshot.exists()) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
 
     try {
-      // Sets the information about the user in the document
       await setDoc(userDocRef, {
         displayName,
         email,
@@ -65,8 +62,14 @@ export const createUserDocumentFromAuth = async (
   return userDocRef;
 };
 
-export const createAuthUserwithEmailandPassword = async (email, password) => {
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
 
   return await createUserWithEmailAndPassword(auth, email, password);
+};
+
+export const signInAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
+
+  return await signInWithEmailAndPassword(auth, email, password);
 };
