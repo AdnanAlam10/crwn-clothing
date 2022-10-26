@@ -36,6 +36,7 @@ const Checkout = () => {
       </CheckoutHeader>
 
       <CheckoutItems>
+        {/* Assigns individual cart item to checkoutitem component  */}
         {cartItems.map((cartItem) => (
           <CheckoutItem key={cartItem.id} cartItem={cartItem} />
         ))}

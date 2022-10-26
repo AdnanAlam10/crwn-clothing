@@ -18,6 +18,7 @@ const defaultFormFields = {
 };
 
 const SignUpForm = () => {
+  // Storing the form field inputs in a state
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
@@ -25,20 +26,23 @@ const SignUpForm = () => {
     setFormFields(defaultFormFields);
   };
 
+  // Handles the submit button on the form
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // Checks if both password added matches
     if (password !== confirmPassword) {
       alert("passwords do not match");
       return;
     }
 
     try {
+      // Calls the sign up with email and password method
       const { user } = await createAuthUserWithEmailAndPassword(
         email,
         password
       );
-
+      // Creates a new user document in the user collection
       await createUserDocumentFromAuth(user, { displayName });
       resetFormFields();
     } catch (error) {
@@ -50,6 +54,7 @@ const SignUpForm = () => {
     }
   };
 
+  // Stores the changes in the form to the state
   const handleChange = (event) => {
     const { name, value } = event.target;
 

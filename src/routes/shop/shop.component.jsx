@@ -9,6 +9,7 @@ const Shop = () => {
   return (
     <Routes>
       <Route index element={<CategoriesPreview />} />
+      {/* Adds the category name as the path */}
       <Route path=":category" element={<Category />} />
     </Routes>
   );

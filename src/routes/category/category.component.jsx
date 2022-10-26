@@ -8,6 +8,7 @@ import ProductCard from "../../components/product-card/product-card.component";
 import { CategoryContainer, Title } from "./category.styles.jsx";
 
 const Category = () => {
+  // Gets the params added to the route
   const { category } = useParams();
   const { categoriesMap } = useContext(CategoriesContext);
   const [products, setProducts] = useState(categoriesMap[category]);

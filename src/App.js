@@ -8,6 +8,7 @@ import Shop from "./routes/shop/shop.component";
 
 const App = () => {
   return (
+    // Configurint the routes of the web app
     <Routes>
       <Route path="/" element={<Navigation />}>
         <Route index element={<Home />} />

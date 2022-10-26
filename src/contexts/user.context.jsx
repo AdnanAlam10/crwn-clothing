@@ -12,6 +12,7 @@ export const UserContext = createContext({
   currentUser: null,
 });
 
+// List of user action using user context
 export const USER_ACTION_TYPES = {
   SET_CURRENT_USER: "SET_CURRENT_USER",
 };
@@ -38,6 +39,7 @@ const userReducer = (state, action) => {
 export const UserProvider = ({ children }) => {
   const [{ currentUser }, dispatch] = useReducer(userReducer, INITIAL_STATE);
 
+  // responsible for setting the current user to the context
   const setCurrentUser = (user) => {
     dispatch(createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user));
   };

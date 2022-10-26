@@ -11,6 +11,7 @@ import "./index.scss";
 const container = document.getElementById("root");
 const root = createRoot(container);
 
+// Rendering the web app with context providers
 root.render(
   <React.StrictMode>
     <BrowserRouter>

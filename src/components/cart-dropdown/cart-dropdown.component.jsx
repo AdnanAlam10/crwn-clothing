@@ -13,7 +13,10 @@ import {
 } from "./cart-dropdown.styles";
 
 const CartDropdown = () => {
+  // Retrive the cart items added from the cart context
   const { cartItems } = useContext(CartContext);
+
+  // Adds functionality to the checkout button
   const navigate = useNavigate();
 
   const goToCheckoutHandler = () => {

@@ -7,9 +7,11 @@ export const CategoriesContext = createContext({
 });
 
 export const CategoriesProvider = ({ children }) => {
+  // Create a categories map as a state
   const [categoriesMap, setCategoriesMap] = useState({});
 
   useEffect(() => {
+    // gets the categories collection from firestore
     const getCategoriesMap = async () => {
       const categoryMap = await getCategoriesAndDocuments();
       setCategoriesMap(categoryMap);

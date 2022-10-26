@@ -3,10 +3,12 @@ import { createContext, useReducer } from "react";
 import { createAction } from "../utils/reducer/reducer.utils";
 
 const addCartItem = (cartItems, productToAdd) => {
+  // Checks whether product to add is already in cart
   const existingCartItems = cartItems.find(
     (cartItem) => cartItem.id === productToAdd.id
   );
 
+  // Checks whether the product has already been added
   if (existingCartItems) {
     return cartItems.map((cartItem) =>
       cartItem.id === productToAdd.id
@@ -14,19 +16,22 @@ const addCartItem = (cartItems, productToAdd) => {
         : cartItem
     );
   }
-
+  // Adds new item to cart item array
   return [...cartItems, { ...productToAdd, quantity: 1 }];
 };
 
 const removeCartItem = (cartItems, cartItemToRemove) => {
+  // Checks whether product to remove is already in cart
   const existingCartItems = cartItems.find(
     (cartItem) => cartItem.id === cartItemToRemove.id
   );
 
+  // Removes item from cart if item quantity is 1
   if (existingCartItems.quantity === 1) {
     return cartItems.filter((cartItem) => cartItem.id !== cartItemToRemove.id);
   }
 
+  // Returns an array with all cart items after decreasing quantity by 1
   return cartItems.map((cartItem) =>
     cartItem.id === cartItemToRemove.id
       ? { ...cartItem, quantity: cartItem.quantity - 1 }
@@ -48,6 +53,7 @@ export const CartContext = createContext({
   cartTotal: 0,
 });
 
+// List of user action using cart context
 const CART_ACTION_TYPES = {
   SET_CART_ITEMS: "SET_CART_ITEMS",
   SET_IS_CART_OPEN: "SET_IS_CART_OPEN",
@@ -85,6 +91,7 @@ export const CartProvider = ({ children }) => {
   const [{ cartItems, cartCount, cartTotal, isCartOpen }, dispatch] =
     useReducer(cartReducer, INITIAL_STATE);
 
+  // Using a reducer to update cart count and total
   const updateCartItemsReducer = (newCartItems) => {
     const newCartCount = newCartItems.reduce(
       (total, cartItem) => total + cartItem.quantity,
@@ -96,6 +103,7 @@ export const CartProvider = ({ children }) => {
       0
     );
 
+    // Setting the new values in the context
     dispatch(
       createAction(CART_ACTION_TYPES.SET_CART_ITEMS, {
         cartItems: newCartItems,
