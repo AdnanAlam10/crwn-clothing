@@ -9,10 +9,6 @@ import SignInForm from "../../components/signInForm/signInForm";
 import "./authentication.styles.scss";
 
 function Authentication() {
-  const logGoogleUser = async () => {
-    const { user } = await signInWithGooglePopup();
-    const userDocRef = await createUserDocumentFromAuth(user);
-  };
   return (
     <div className="authentication-container">
       <SignInForm />

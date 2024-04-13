@@ -20,14 +20,17 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
+  // resets form
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
 
+  // for google popup
   const signInWithGoogle = async () => {
     await signInWithGooglePopup();
   };
 
+  // handles sign in button
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -48,6 +51,7 @@ const SignInForm = () => {
     }
   };
 
+  // assigns the values when any change made
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -55,7 +59,7 @@ const SignInForm = () => {
   };
 
   return (
-    <div className="sign-up-container">
+    <div className="sign-in-container">
       <h2>Already have an account?</h2>
       <span>Sign in with your email and password</span>
       <form onSubmit={handleSubmit}>

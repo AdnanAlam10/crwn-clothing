@@ -24,6 +24,7 @@ function SignUpForm() {
 
   console.log(formFields);
 
+  // Handles any change in the forms
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
@@ -33,6 +34,7 @@ function SignUpForm() {
     setFormFields(defaultFormFields);
   };
 
+  // Handles the submit request from the form
   const handleSubmit = async (event) => {
     event.preventDefault();
 

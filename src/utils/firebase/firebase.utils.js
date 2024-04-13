@@ -11,6 +11,7 @@ import {
 
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
+// Firebase Project Config
 const firebaseConfig = {
   apiKey: "AIzaSyD4w-VDUcaPrQ4Slyd14xgk1mRunqyoeBI",
   authDomain: "crwn-clothing-3a460.firebaseapp.com",
@@ -22,15 +23,18 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig);
 
+// Initializing google authentication provider
 const provider = new GoogleAuthProvider();
 
 provider.setCustomParameters({
   prompt: "select_account",
 });
 
+// Setup google popup
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
+// Initialize firestore
 export const db = getFirestore();
 
 // Checks if user has logged in before and stores their data
@@ -38,15 +42,20 @@ export const createUserDocumentFromAuth = async (
   userAuth,
   additionalInformation = {}
 ) => {
+  // Reference to users document using uid
   const userDocRef = doc(db, "users", userAuth.uid);
 
+  // Retrieve a document snapshot
   const userSnapshot = await getDoc(userDocRef);
 
+  // Checks if user already exits in the users document
   if (!userSnapshot.exists()) {
+    // Recording new user information
     const { displayName, email } = userAuth;
     const createdAt = new Date();
 
     try {
+      // Creates new user and stores in users document
       await setDoc(userDocRef, {
         displayName,
         email,
@@ -61,12 +70,14 @@ export const createUserDocumentFromAuth = async (
   return userDocRef;
 };
 
+//  Creating a new user using email and password
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
 
   return await createUserWithEmailAndPassword(auth, email, password);
 };
 
+// Sigining in an existing user using email and password
 export const signInAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
 
@@ -75,5 +86,6 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 
 export const signOutUser = async () => await signOut(auth);
 
+// Listens for any updates on the user's auth state
 export const onAuthStateChangedListener = (callback) =>
   onAuthStateChanged(auth, callback);
