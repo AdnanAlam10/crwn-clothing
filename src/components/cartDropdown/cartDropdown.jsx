@@ -3,10 +3,14 @@ import { useNavigate } from "react-router-dom";
 
 import { CartContext } from "../../contexts/cartContext";
 
-import "./cartDropdown.styles.scss";
-
 import CartItem from "../cartItem/cartItem";
 import Button from "../button/button";
+
+import {
+  CartDropdownContainer,
+  EmptyMessage,
+  CartItems,
+} from "./cartDropdown.styles.jsx";
 
 function CartDropdown() {
   const { cartItems } = useContext(CartContext);
@@ -17,14 +21,16 @@ function CartDropdown() {
   };
 
   return (
-    <div className="cart-dropdown-container">
-      <div className="cart-items">
-        {cartItems.map((item) => (
-          <CartItem key={item.id} cartItem={item} />
-        ))}
-      </div>
+    <CartDropdownContainer>
+      <CartItems>
+        {cartItems.length ? (
+          cartItems.map((item) => <CartItem key={item.id} cartItem={item} />)
+        ) : (
+          <EmptyMessage>Your cart it empty</EmptyMessage>
+        )}
+      </CartItems>
       <Button onClick={goToCheckout}>CHECKOUT</Button>
-    </div>
+    </CartDropdownContainer>
   );
 }
 

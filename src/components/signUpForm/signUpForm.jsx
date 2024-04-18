@@ -4,7 +4,7 @@ import FormInput from "../formInput/formInput";
 import Button from "../button/button";
 import { UserContext } from "../../contexts/userContext";
 
-import "./signUpForm.styles.scss";
+import { SignUpContainer } from "./signUpForm.styles.jsx";
 
 import {
   createAuthUserWithEmailAndPassword,
@@ -59,7 +59,7 @@ function SignUpForm() {
     }
   };
   return (
-    <div className="sign-up-container">
+    <SignUpContainer>
       <h2>Don't have an Account?</h2>
       <span>Sign up with your email and password</span>
       <form onSubmit={handleSubmit}>
@@ -100,7 +100,7 @@ function SignUpForm() {
         />
         <Button type="submit">Sign Up</Button>
       </form>
-    </div>
+    </SignUpContainer>
   );
 }
 
