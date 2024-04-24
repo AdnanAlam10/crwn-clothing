@@ -22,8 +22,6 @@ function SignUpForm() {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
-  console.log(formFields);
-
   // Handles any change in the forms
   const handleChange = (event) => {
     const { name, value } = event.target;
